@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="title">...</ui:insert></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet name="assets/css/bootstrap.min.css" library="template" /> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style type="text/css" xml:space="preserve"></style>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" type="text/javascript"></script> <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+    type="text/javascript" xml:space="preserve"></script>
+    <h:outputStylesheet library="css" name="style.css"  />
+</h:head>
+
+<h:body id = "top">
+		<ui:insert name="header">
+			<div id="header" class="box bottom-space">
+				<ui:include src="/templates/public/header-snippet.xhtml" />
+			</div>
+		</ui:insert>
+		<div id="main" class="container" style="padding-top: 100px;">
+			<ui:insert name="content"></ui:insert>
+		</div>
+		<ui:insert name="footer">
+			<div id="footer" class="footer-color footer">
+				<ui:include src="/templates/public/footer-snippet.xhtml" />
+			</div>
+		</ui:insert>
+    
+</h:body>
+
+</html>
