@@ -16,20 +16,19 @@
 					   <div class="col-xs-12 col-sm-6">
        						<div class="form-group">
 								<h:outputLabel for="p-login" value="Login" />
-								<p:inputText id="p-login" value="#{accountEditBB.login}" a:maxlength="20"/>
+								<p:inputText id="p-login" value="#{accountEditBB.login}" a:maxlength="45"/>
 							</div>
 						</div>
 					 	<div class="col-xs-12 col-sm-6">
         					<div class="form-group">
 								<h:outputLabel for="p-pass" value="Password" />
-								<p:password id="p-pass" value="#{accountEditBB.password}" a:maxlength="20"/>
+								<p:password id="p-pass" value="#{accountEditBB.password}" a:maxlength="45"/>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
         					<div class="form-group">
-							<h:outputLabel for="p-email" value="Email" />
-							<p:inputText id="e-email" value="#{accountEditBB.email}" />
-							<p:message for="e-email" display="tooltip" />
+							<h:outputLabel for="e-email" value="Email" />
+							<p:inputText id="e-email" value="#{accountEditBB.email}" a:maxlength="45"/>
 							
 							</div>
 						</div>

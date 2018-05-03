@@ -16,6 +16,8 @@ public class LoginBB {
 	private static final String PAGE_LOGIN = "/pages/login";
 	private static final String PAGE_REGISTR = "/pages/public/registr?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
+	
+	private static final String PAGE_ACCOUNT_LIST = "/pages/admin/accountList?faces-redirect=true";
 
 	private String login;
 	private String pass;
@@ -100,6 +102,10 @@ public class LoginBB {
 				.getExternalContext().getSession(true);
 		session.invalidate();
 		return PAGE_LOGIN;
+	}
+	
+	public String doAccountList(){
+		return PAGE_ACCOUNT_LIST;
 	}
 	
 	public String doRegistr(){

@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 import part.project.Account;
 
@@ -54,9 +53,9 @@ public class AccountDAO {
 		String select = "select p ";
 		String from = "from Account p ";
 		String where = "";
-		String orderby = "order by p.idaccount asc";
+		String orderby = "order by p.idAccount asc";
 		
-		int idaccount = (int) searchParams.get("idaccount");
+		int idaccount = (int) searchParams.get("idAccount");
 		if (idaccount != 0) {
 			if (where.isEmpty()) {
 				where = "where ";
@@ -80,11 +79,78 @@ public class AccountDAO {
 
 
 		if (idaccount != 0) {
-			query.setParameter("idaccount", idaccount);
+			query.setParameter("idAccount", idaccount);
 		}
 		
 		if (login != null) {
 				query.setParameter("login", login);
+		}
+
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+	
+	public List<Account> lazyFunction(Map<String, Object> searchParams, PaginationInfo info) {
+		List<Account> list = null;
+
+		String select = "select p ";
+		String from = "from Account p ";
+		String where = "";
+		String orderby = "order by p.idAccount asc";
+		
+		String login = (String) searchParams.get("login");
+		if (login != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "p.login like :login ";
+		}
+		
+		String email = (String) searchParams.get("email");
+		if (email != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "p.email like :email ";
+		}
+		
+		Query querycount = em.createQuery("SELECT COUNT(p.idAccount) " + from + where);
+		
+		if (login != null) {
+			querycount.setParameter("login", login+"%");
+		}
+		
+		if (email != null) {
+			querycount.setParameter("email", email+"%");
+		}
+			
+		try {
+			Number n = (Number) querycount.getSingleResult();
+			info.setCount(n.intValue());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Query query = em.createQuery(select + from + where);
+		query.setFirstResult(info.getOffset());
+		query.setMaxResults(info.getLimit());
+
+		if (login != null) {
+			query.setParameter("login", login+"%");
+		}
+		
+		if (email != null) {
+			query.setParameter("email", email+"%");
 		}
 
 		try {

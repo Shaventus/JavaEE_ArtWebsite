@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -22,9 +23,61 @@ public class AccountListBB {
 	
 	@EJB
 	AccountDAO accountDAO;
+	
+	private String login;
+	private String email;
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	private AccountLazyDataModel lazyModel = null;
+
+	public AccountLazyDataModel getLazyModel() {
+		return lazyModel;
+	}
+
+	public void setLazyModel(AccountLazyDataModel lazyModel) {
+		this.lazyModel = lazyModel;
+	}
 
 	public List<Account> getFullList(){
 		return accountDAO.getFullList();
+	}
+	
+	@PostConstruct
+	public void init() {
+		if(lazyModel == null){
+			lazyModel = new AccountLazyDataModel();
+		}
+	}
+	
+	public AccountLazyDataModel getLazyList() {
+		
+		Map<String, Object> searchParams = new HashMap<String, Object>();
+
+		if(login != null){
+			searchParams.put("login", login);
+		}
+		if(email != null){
+			searchParams.put("email", email);
+		}
+		
+		lazyModel.setSearchParams(searchParams);
+		lazyModel.setAccountDAO(accountDAO);
+		return lazyModel;
 	}
 
 	public List<Account> getList(){
