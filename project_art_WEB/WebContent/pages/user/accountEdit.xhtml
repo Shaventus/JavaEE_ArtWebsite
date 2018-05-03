@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/user/page-template.xhtml">
+
+	<ui:define name="pageContent">
+<div >
+		<h1>Update</h1>
+			<h:form id="form" class="row" style="padding-bottom: 50px;">
+				<fieldset style="padding: 1em; border-radius: 0.2em;">
+					   <div class="col-xs-12 col-sm-6">
+       						<div class="form-group">
+								<h:outputLabel for="p-login" value="Login" />
+								<p:inputText id="p-login" value="#{accountEditBB.login}" a:maxlength="20"/>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+        					<div class="form-group">
+							<h:outputLabel for="p-email" value="Email" />
+							<p:inputText id="p-email" value="#{accountEditBB.email}" />
+							</div>
+						</div>
+					<h:messages />
+					<h:commandButton value="Update" action="#{accountEditBB.saveEditData()}" class="btn btn-outline-secondary"
+					style="margin-right: 1em;"/>
+				</fieldset>
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+</html>

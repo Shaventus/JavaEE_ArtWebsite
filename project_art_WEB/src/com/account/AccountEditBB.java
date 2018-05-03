@@ -34,7 +34,7 @@ public class AccountEditBB {
 	private Date date;
 	
 	private Account account;
-	private Role role;
+	private Role role = null;
 	
 	public String getAvatar() {
 		return avatar;
@@ -117,9 +117,11 @@ public class AccountEditBB {
 			account.setDate(date);
 			account.setEmail(email);
 			
-			role = new Role();
-			role = roleDAO.find(2);
-			role.getAccounts().add(account);
+			if(account.getIdAccount() == 0){
+				role = new Role();
+				role = roleDAO.find(2);
+				role.getAccounts().add(account);
+			}
 			
 			result = true;
 		}
@@ -142,11 +144,11 @@ public class AccountEditBB {
 		try {
 			if (account.getIdAccount() == 0) {
 				accountDAO.create(account);
+				if(role.getIdRole() != 0) {
+					roleDAO.merge(role);
+				}
 			} else {
 				accountDAO.merge(account);
-			}
-			if(role.getIdRole() != 0) {
-				roleDAO.merge(role);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,6 +158,38 @@ public class AccountEditBB {
 		}
 
 		return PAGE_LOGIN;
+	}
+	
+	public String saveEditData() {
+		
+		if (!validate()) {
+			return PAGE_STAY_AT_THE_SAME;
+		}
+		
+		if (account == null) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Incorrect system usage"));
+			return PAGE_STAY_AT_THE_SAME;
+		}
+
+		try {
+			if (account.getIdAccount() == 0) {
+				accountDAO.create(account);
+				if(role.getIdRole() != 0) {
+					roleDAO.merge(role);
+				}
+			} else {
+				accountDAO.merge(account);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("An error while saving"));
+			return PAGE_STAY_AT_THE_SAME;
+		}
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage("Update"));
+		return PAGE_STAY_AT_THE_SAME;
 	}
 	
 	public String doLogin(){
