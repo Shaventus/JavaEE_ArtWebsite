@@ -4,49 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import part.project.Account;
+import part.model.Account;
 
 @Stateless
-public class AccountDAO {
-	private final static String UNIT_NAME = "jsfCards-simplePU";
-
-	@PersistenceContext(unitName = UNIT_NAME)
-	protected EntityManager em;
+public class AccountDAO extends DAO<Account>{
 	
-	public void create(Account w){
-		em.persist(w);
+	public AccountDAO(){
+		setEntityClass(Account.class);
 	}
 	
-	public Account merge(Account account) {
-		return em.merge(account);
-	}
-
-	public void remove(Account account) {
-		em.remove(em.merge(account));
-	}
-	
-	public Account find(Object id) {
-		return em.find(Account.class, id);
-	}
-
-	public List<Account> getFullList() {
-		List<Account> list = null;
-
-		Query query = em.createQuery("select p from Account p");
-
-		try {
-			list = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-	
+	@Override
 	public List<Account> getList(Map<String, Object> searchParams) {
 		List<Account> list = null;
 

@@ -4,49 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import part.project.Interest;
+import part.model.Interest;
 
 @Stateless
-public class InterestDAO {
-	private final static String UNIT_NAME = "jsfCards-simplePU";
-
-	@PersistenceContext(unitName = UNIT_NAME)
-	protected EntityManager em;
+public class InterestDAO extends DAO<Interest>{
 	
-	public void create(Interest w){
-		em.persist(w);
+	public InterestDAO(){
+		setEntityClass(Interest.class);
 	}
 	
-	public Interest merge(Interest interest) {
-		return em.merge(interest);
-	}
-
-	public void remove(Interest interest) {
-		em.remove(em.merge(interest));
-	}
-	
-	public Interest find(Object id) {
-		return em.find(Interest.class, id);
-	}
-
-	public List<Interest> getFullList() {
-		List<Interest> list = null;
-
-		Query query = em.createQuery("select p from Interest p");
-
-		try {
-			list = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-	
+	@Override
 	public List<Interest> getList(Map<String, Object> searchParams) {
 		List<Interest> list = null;
 

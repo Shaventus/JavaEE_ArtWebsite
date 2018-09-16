@@ -4,49 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import part.project.Role;
+import part.model.Role;
 
 @Stateless
-public class RoleDAO {
-	private final static String UNIT_NAME = "jsfCards-simplePU";
-
-	@PersistenceContext(unitName = UNIT_NAME)
-	protected EntityManager em;
+public class RoleDAO extends DAO<Role> {
 	
-	public void create(Role w){
-		em.persist(w);
+	public RoleDAO(){
+		setEntityClass(Role.class);
 	}
 	
-	public Role merge(Role role) {
-		return em.merge(role);
-	}
-
-	public void remove(Role role) {
-		em.remove(em.merge(role));
-	}
-	
-	public Role find(Object id) {
-		return em.find(Role.class, id);
-	}
-
-	public List<Role> getFullList() {
-		List<Role> list = null;
-
-		Query query = em.createQuery("select p from Role p");
-
-		try {
-			list = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-	
+	@Override
 	public List<Role> getList(Map<String, Object> searchParams) {
 		List<Role> list = null;
 

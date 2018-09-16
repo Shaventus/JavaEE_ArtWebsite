@@ -4,49 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import part.project.Favorite;
+import part.model.Favorite;
 
 @Stateless
-public class FavoriteDAO {
-	private final static String UNIT_NAME = "jsfCards-simplePU";
-
-	@PersistenceContext(unitName = UNIT_NAME)
-	protected EntityManager em;
+public class FavoriteDAO extends DAO<Favorite>{
 	
-	public void create(Favorite w){
-		em.persist(w);
+	public FavoriteDAO(){
+		setEntityClass(Favorite.class);
 	}
 	
-	public Favorite merge(Favorite favorite) {
-		return em.merge(favorite);
-	}
-
-	public void remove(Favorite favorite) {
-		em.remove(em.merge(favorite));
-	}
-	
-	public Favorite find(Object id) {
-		return em.find(Favorite.class, id);
-	}
-
-	public List<Favorite> getFullList() {
-		List<Favorite> list = null;
-
-		Query query = em.createQuery("select p from Favorite p");
-
-		try {
-			list = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-	
+	@Override
 	public List<Favorite> getList(Map<String, Object> searchParams) {
 		List<Favorite> list = null;
 

@@ -7,7 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import part.dao.AccountDAO;
-import part.project.Account;
+import part.model.Account;
 
 @ManagedBean
 public class LoginBB {

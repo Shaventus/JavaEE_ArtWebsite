@@ -4,49 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import part.project.Comment;
+import part.model.Comment;
 
 @Stateless
-public class CommentDAO {
-	private final static String UNIT_NAME = "jsfCards-simplePU";
-
-	@PersistenceContext(unitName = UNIT_NAME)
-	protected EntityManager em;
+public class CommentDAO extends DAO<Comment>{
 	
-	public void create(Comment w){
-		em.persist(w);
+	public CommentDAO(){
+		setEntityClass(Comment.class);
 	}
 	
-	public Comment merge(Comment comment) {
-		return em.merge(comment);
-	}
-
-	public void remove(Comment comment) {
-		em.remove(em.merge(comment));
-	}
-	
-	public Comment find(Object id) {
-		return em.find(Comment.class, id);
-	}
-
-	public List<Comment> getFullList() {
-		List<Comment> list = null;
-
-		Query query = em.createQuery("select p from Comment p");
-
-		try {
-			list = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-	
+	@Override
 	public List<Comment> getList(Map<String, Object> searchParams) {
 		List<Comment> list = null;
 

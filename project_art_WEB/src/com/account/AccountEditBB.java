@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import part.dao.AccountDAO;
 import part.dao.RoleDAO;
-import part.project.Account;
-import part.project.Role;
+import part.model.Account;
+import part.model.Role;
 
 @ManagedBean
 @ViewScoped

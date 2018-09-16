@@ -4,49 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import part.project.Favoritecomment;
+import part.model.Favoritecomment;
 
 @Stateless
-public class FavoritecommentDAO {
-	private final static String UNIT_NAME = "jsfCards-simplePU";
+public class FavoritecommentDAO extends DAO<Favoritecomment>{
 
-	@PersistenceContext(unitName = UNIT_NAME)
-	protected EntityManager em;
-	
-	public void create(Favoritecomment w){
-		em.persist(w);
+	public FavoritecommentDAO(){
+		setEntityClass(Favoritecomment.class);
 	}
 	
-	public Favoritecomment merge(Favoritecomment favoritecomment) {
-		return em.merge(favoritecomment);
-	}
-
-	public void remove(Favoritecomment favoritecomment) {
-		em.remove(em.merge(favoritecomment));
-	}
-	
-	public Favoritecomment find(Object id) {
-		return em.find(Favoritecomment.class, id);
-	}
-
-	public List<Favoritecomment> getFullList() {
-		List<Favoritecomment> list = null;
-
-		Query query = em.createQuery("select p from Favorite p");
-
-		try {
-			list = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-	
+	@Override
 	public List<Favoritecomment> getList(Map<String, Object> searchParams) {
 		List<Favoritecomment> list = null;
 

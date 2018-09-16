@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 import org.primefaces.model.SortOrder;
 
-import part.project.Account;
+import part.model.Account;
 
 public class AccountSorter implements Comparator<Account> {
 	

@@ -4,49 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import part.project.Statistic;
+import part.model.Statistic;
 
 @Stateless
-public class StatisticDAO {
-	private final static String UNIT_NAME = "jsfCards-simplePU";
-
-	@PersistenceContext(unitName = UNIT_NAME)
-	protected EntityManager em;
+public class StatisticDAO extends DAO<Statistic>{
 	
-	public void create(Statistic w){
-		em.persist(w);
+	public StatisticDAO(){
+		setEntityClass(Statistic.class);
 	}
 	
-	public Statistic merge(Statistic statistic) {
-		return em.merge(statistic);
-	}
-
-	public void remove(Statistic statistic) {
-		em.remove(em.merge(statistic));
-	}
-	
-	public Statistic find(Object id) {
-		return em.find(Statistic.class, id);
-	}
-
-	public List<Statistic> getFullList() {
-		List<Statistic> list = null;
-
-		Query query = em.createQuery("select p from Statistic p");
-
-		try {
-			list = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-	
+	@Override
 	public List<Statistic> getList(Map<String, Object> searchParams) {
 		List<Statistic> list = null;
 

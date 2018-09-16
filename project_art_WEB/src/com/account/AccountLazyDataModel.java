@@ -10,7 +10,7 @@ import org.primefaces.model.SortOrder;
 
 import part.dao.AccountDAO;
 import part.dao.PaginationInfo;
-import part.project.Account;
+import part.model.Account;
 
 public class AccountLazyDataModel extends LazyDataModel<Account>{
 
